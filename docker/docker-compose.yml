@@ -9,6 +9,8 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "5432:5432"
+    volumes:
+      - cutter_db_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=cutter_user
       - POSTGRES_PASSWORD=cutter_pass
@@ -16,9 +18,16 @@ services:
 
   rabbitmq:
     image: rabbitmq:3.6.12
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
     ports:
       - "5672:5672"
       - "15672:15672"
+    volumes:
+      - cutter_rmq_data:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+
+volumes:
+  cutter_db_data:
+  cutter_rmq_data:
