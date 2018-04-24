@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+
+  cutter_api:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    command: docker/bin/run_cutter_api.sh
+    volumes:
+      - ../:/usr/src/app
+    ports:
+      - '8000:8000'
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    entrypoint: /entrypoint.sh
+
+  cutter_celery:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    command: docker/bin/run_cutter_celery.sh
+    volumes:
+      - ../:/usr/src/app
+    links:
+      - postgres
+      - rabbitmq
+    depends_on:
+      - postgres
+      - rabbitmq
+    entrypoint: /entrypoint.sh
