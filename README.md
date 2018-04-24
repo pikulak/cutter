@@ -1,4 +1,4 @@
-# simple-site-requester
+# cutter
 A web app which help in cutting your audio file
 
 ### Requirements:
