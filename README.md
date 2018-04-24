@@ -19,9 +19,9 @@ A web app which help in cutting your audio file
   ### Look into logs
     ./manage.sh logs -f
   ### Start API only
-    ./manage.sh up ssr_api
+    ./manage.sh up cutter_api
   ### Start Celery worker only
-    ./manage.sh up ssr_celery
+    ./manage.sh up cutter_celery
   ### Stop whole app
     ./manage.sh down
   ### More
