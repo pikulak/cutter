@@ -18,6 +18,7 @@ PROJECT RELATED COMMANDS:
    down              Stop and remove containers, networks, images, and volumes
 
 DOCKER RELATED COMMANDS:
+   build             Build all images
    stop              Stop running containers without removing them. They can be started again with "manage.sh start"
    start             Start existing containers (after they were stopped)
    restart           Restart containers
@@ -35,6 +36,10 @@ EOF
 cd ${COMPOSE_DIR}
 
 case "${1}" in
+    'build')
+        echo "Building new images..."
+        docker-compose build ${@:2}
+    ;;
     'clean')
         echo "Clearing docker environment..."
         docker-compose down
