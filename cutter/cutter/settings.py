@@ -25,7 +25,7 @@ SECRET_KEY = '4at)a_v#63iqsoz11#j)y-j69$iv+shv^18&ve#pl)ps)a=414'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'cutter_api'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +77,12 @@ WSGI_APPLICATION = 'cutter.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('CUTTER_DB_NAME', 'cutter_db'),
+        'USER': os.environ.get('CUTTER_DB_USER', 'cutter_user'),
+        'PASSWORD': os.environ.get('CUTTER_DB_PASSWORD', 'cutter_pass'),
+        'HOST': os.environ.get('CUTTER_DB_HOSTNAME', 'postgres'),
+        'PORT': os.environ.get('CUTTER_DB_PORT', 5432),
     }
 }
 
