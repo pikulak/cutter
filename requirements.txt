@@ -2,3 +2,4 @@ django==2.0.4
 djangorestframework==3.8.2
 celery==4.1.0
 psycopg2-binary
+pydub
