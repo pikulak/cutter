@@ -128,7 +128,8 @@ STATIC_URL = '/static/'
 
 # User-uploaded files
 
-MEDIA_ROOT = '/usr/src/app/media'
+MEDIA_ROOT = '/usr/src/app/media/'
+MEDIA_URL = '/media/'
 
 
 # Celery

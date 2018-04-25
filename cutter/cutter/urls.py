@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from rest_framework import routers
+from files.urls import router as files_router
 
-router = routers.DefaultRouter()
+api_router = routers.DefaultRouter()
+api_router.registry.extend(files_router.registry)
 
 urlpatterns = [
-    url(r'^api/', include(router.urls)),
+    url(r'^api/', include(api_router.urls)),
     url(r'^api/files/', include(('files.urls', 'files'), namespace='files')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

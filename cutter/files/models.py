@@ -5,7 +5,7 @@ from .utils import sha256_checksum
 
 
 def upload_file_path(instance, filename):
-    return f'files/{instance.id}/{filename}'
+    return f'uploaded/{instance.id}/{filename}'
 
 
 class File(models.Model):

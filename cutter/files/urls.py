@@ -4,8 +4,8 @@ from .views import FileViewSet
 
 
 router = DefaultRouter()
-router.register(r'^files', FileViewSet)
+router.register(r'files', FileViewSet, base_name='file')
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^', include(router.urls))
 ]
