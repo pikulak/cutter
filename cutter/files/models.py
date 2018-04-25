@@ -14,12 +14,6 @@ class File(models.Model):
     upload = models.FileField(upload_to=upload_file_path)
     sha256 = models.CharField(max_length=60, blank=True)
 
-    def save(self, *args, **kwargs):
-        is_new = self._state.adding
-        if is_new:
-            self.sha256 = sha256_checksum(self.upload.path)
-        super().save(*args, **kwargs)
-
 
 class FileAudio(File):
     pass
