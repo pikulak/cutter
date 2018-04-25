@@ -130,6 +130,7 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = '/usr/src/app/media'
 
+
 # Celery
 
 CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
