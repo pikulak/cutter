@@ -4,7 +4,7 @@ from rest_framework.viewsets import (
     GenericViewSet,
     mixins
 )
-from .models import FileAudio
+from .models import FileAudio, TempFile
 from .serializers import FileAudioSerializer
 from .tasks import async_cut_file
 
@@ -18,10 +18,20 @@ class FileViewSet(mixins.CreateModelMixin,
     queryset = FileAudio.objects.all()
     serializer_class = FileAudioSerializer
 
+    @staticmethod
+    def _create_temp_file(file):
+        temp_file = TempFile(upload=file)
+        temp_file.save()
+        return temp_file
+
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        file_obj = serializer.save()
-        async_cut_file.delay(file_obj.upload.path, file_obj.pk)
+
+        temp_file = self._create_temp_file(serializer.validated_data['upload'])
+        serializer.validated_data['temp_file'] = temp_file
+        serializer.save()
+
+        # async_cut_file.delay(file_obj.upload.path, file_obj.pk)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

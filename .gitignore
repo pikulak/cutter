@@ -104,4 +104,5 @@ ENV/
 .idea/
 
 # User-uploaded media files
-media/*
+media/
+tmp/
