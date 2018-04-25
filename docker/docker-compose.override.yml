@@ -12,7 +12,7 @@ services:
       - CUTTER_DB_PASSWORD=cutter_pass
       - CUTTER_DB_HOSTNAME=postgres
       - CUTTER_DB_PORT=5432
-    command: docker/bin/run_cutter_api.sh
+    command: docker/bin/run_cutter.sh
     volumes:
       - ../:/usr/src/app
     ports:
