@@ -6,3 +6,4 @@ class FileAudioSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = FileAudio
         fields = ('id', 'upload')
+        extra_kwargs = {'upload': {'use_url': False}}
