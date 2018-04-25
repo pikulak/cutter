@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import FileAudio
+from .serializers import FileAudioSerializer
 
-# Create your views here.
+
+class FileViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = FileAudio.objects.all()
+    serializer_class = FileAudioSerializer
