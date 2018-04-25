@@ -126,6 +126,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
+# User-uploaded files
+
+MEDIA_ROOT = '/usr/src/app/media'
+
 # Celery
 
 CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'

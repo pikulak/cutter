@@ -102,3 +102,6 @@ ENV/
 
 # PyCharm
 .idea/
+
+# User-uploaded media files
+media/
