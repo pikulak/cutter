@@ -27,9 +27,13 @@ class FileViewSet(mixins.CreateModelMixin,
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
+        original_filename = serializer.validated_data['upload'].name
         temp_file = self._create_temp_file(serializer.validated_data['upload'])
+
         serializer.validated_data['temp_file'] = temp_file
+        serializer.validated_data['original_filename'] = original_filename
+        serializer.validated_data['upload'] = None
+
         serializer.save()
 
         # async_cut_file.delay(file_obj.upload.path, file_obj.pk)

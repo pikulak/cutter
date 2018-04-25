@@ -26,6 +26,13 @@ class BaseFile(models.Model):
         abstract = True
 
 
+class FileMetadataMixin(models.Model):
+    original_filename = models.CharField(max_length=64, blank=True)
+
+    class Meta:
+        abstract = True
+
+
 class TempFile(BaseFile):
     upload = models.FileField(upload_to=temp_file_path)
 
@@ -36,14 +43,15 @@ class TempFile(BaseFile):
         super().delete(*args, **kwargs)
 
 
-class FileAudio(BaseFile):
-    upload = models.FileField(upload_to=processed_audio_file_path, blank=True)
+class FileAudio(BaseFile, FileMetadataMixin):
+    upload = models.FileField(blank=True)
     temp_file = models.OneToOneField(TempFile, on_delete=models.CASCADE, blank=True)
 
     def delete(self, *args, **kwargs):
-        dir_path = os.path.dirname(self.upload.path)
-        if os.path.isdir(dir_path):
-            shutil.rmtree(dir_path)
+        if self.upload:
+            dir_path = os.path.dirname(self.upload.path)
+            if os.path.isdir(dir_path):
+                shutil.rmtree(dir_path)
 
         self.temp_file.delete()
         super().delete(*args, **kwargs)
