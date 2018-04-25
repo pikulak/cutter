@@ -34,8 +34,8 @@ class FileViewSet(mixins.CreateModelMixin,
         serializer.validated_data['original_filename'] = original_filename
         serializer.validated_data['upload'] = None
 
-        serializer.save()
+        preprocessed_file = serializer.save()
+        async_cut_file.delay(temp_file.pk, preprocessed_file.pk)
 
-        # async_cut_file.delay(file_obj.upload.path, file_obj.pk)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
