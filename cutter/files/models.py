@@ -4,8 +4,8 @@ from django.db import models
 from .utils import sha256_checksum
 
 
-def upload_file_path(instance, _):
-    return f'files/{instance.id}'
+def upload_file_path(instance, filename):
+    return f'files/{instance.id}/{filename}'
 
 
 class File(models.Model):
