@@ -13,3 +13,5 @@ RUN chmod +x /wait-for-it.sh
 
 COPY docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
+RUN apt update && apt install -y libav-tools libavcodec-extra-56
