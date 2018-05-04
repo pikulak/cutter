@@ -39,10 +39,6 @@ class FileMetadataMixin(models.Model):
 class FileAudio(BaseFile, FileMetadataMixin):
     upload = models.FileField(upload_to=audio_file_path)
 
-    def save(self, *args, **kwargs):
-        print("CHUUUUUUUUUUUUUUUUJ")
-        super().save(*args, **kwargs)
-
     def delete(self, *args, **kwargs):
         if self.upload:
             dir_path = os.path.dirname(self.upload.path)
