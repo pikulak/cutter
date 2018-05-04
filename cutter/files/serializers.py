@@ -5,4 +5,4 @@ from rest_framework import serializers
 class FileAudioSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = FileAudio
-        fields = ('id', 'upload')
+        fields = ('id', 'upload', 'processing_state')

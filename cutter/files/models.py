@@ -13,10 +13,17 @@ def audio_file_path(instance, filename):
     return f'processed/audio/{instance.id}/{filename}'
 
 
+class FileProcessingState(models.Model):
+    value = models.IntegerField(blank=True, default=0)
+
+
 class BaseFile(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     upload = models.FileField(upload_to=default_file_path)
     sha256 = models.CharField(max_length=60, blank=True)
+    processing_state = models.OneToOneField(
+        FileProcessingState, on_delete=models.CASCADE, blank=True, null=True
+    )
 
     class Meta:
         abstract = True
@@ -31,6 +38,10 @@ class FileMetadataMixin(models.Model):
 
 class FileAudio(BaseFile, FileMetadataMixin):
     upload = models.FileField(upload_to=audio_file_path)
+
+    def save(self, *args, **kwargs):
+        print("CHUUUUUUUUUUUUUUUUJ")
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         if self.upload:
