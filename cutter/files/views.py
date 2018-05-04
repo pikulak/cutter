@@ -11,6 +11,8 @@ from .tasks import async_cut_file
 
 class FileViewSet(mixins.CreateModelMixin,
                   mixins.DestroyModelMixin,
+                  mixins.RetrieveModelMixin,
+                  mixins.ListModelMixin,
                   GenericViewSet):
     """
     API endpoint that allows users to be viewed or edited.
